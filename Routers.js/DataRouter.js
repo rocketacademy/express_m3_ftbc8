@@ -8,7 +8,7 @@ class DataRouter {
   }
   routes() {
     const router = this.express.Router();
-
+    // this is the stufff that we shouldnt do
     router.get("/", (req, res) => {
       res.send(this.cache);
     });
@@ -41,9 +41,19 @@ class DataRouter {
       res.send(this.cache);
     });
 
+    // we should do below - we want to separate our concerns.
+
     router.get("/ftbc8", this.controller.getData.bind(this.controller));
     router.get("/ftbc8/:name", this.controller.getSingle.bind(this.controller));
+    router.get(
+      "/schedules",
+      this.controller.getSchedules.bind(this.controller)
+    );
 
+    router.post(
+      "/schedules",
+      this.controller.postSchedule.bind(this.controller)
+    );
     return router;
   }
 }
